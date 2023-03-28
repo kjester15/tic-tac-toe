@@ -1,10 +1,12 @@
-game_finished = false
-
 class Game
+    attr_accessor :board, :winner, :player_turn, :win, :game_finished
+
     def initialize
         @board = " 1 | 2 | 3 \n---+---+---\n 4 | 5 | 6 \n---+---+---\n 7 | 8 | 9 "
         @winner = ""
         @player_turn = ""
+        @win = false
+        @game_finished = false
     end
 
     def print_board
@@ -18,9 +20,11 @@ class Game
 
     def check_win
         #check if their is a winning streak on the board
-        @win = false
+
+        # logic to check if there are three in a row - if so, update @win to true
         if @win == true
             puts "You win!"
+            @game_finished = true
         end
     end
             
@@ -43,7 +47,7 @@ class Player
     end
 end
 
-while not game_finished
+while
     # initialize new game
     new_game = Game.new
     puts "Welcome to Tic Tac Toe! Let's play a game in the console."
@@ -62,20 +66,23 @@ while not game_finished
     player_symbol = gets.chomp
     player2 = Player.new(player_name, player_symbol)
     
-    # print player names and symbols for error checking - CAN EVENTUALLY DELETE
+    # print player names and symbols, game board, and game_finished value, for error checking - CAN EVENTUALLY DELETE
     puts player1.get_name_symbol
     puts player2.get_name_symbol
     puts new_game.print_board
+    puts new_game.game_finished
 
     # loop and let players make choices until game is over
-    while not game_finished
+    while not new_game.game_finished
         # first player makes selection, then check if game is over
         player1.make_selection
         new_game.check_win
+        new_game.print_board
         # if the game isn't over, player 2 can select, then check if game is over
-        if not game_finished
+        if not new_game.game_finished
             player2.make_selection
             new_game.check_win
+            new_game.print_board
         end
     end
 
