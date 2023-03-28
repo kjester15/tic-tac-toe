@@ -14,9 +14,9 @@ class Game
     end
 
     # method to replace number on board with player's symbol - SHOULD THIS BE IN HERE? OR IN PLAYER?
-    # def replace_number(board, selection, character)
-    #     board.gsub(selection, character)
-    # end
+    def replace_number(board, selection, character)
+        # board.gsub(selection, character)
+    end
 
     def check_win
         #check if their is a winning streak on the board
@@ -34,6 +34,10 @@ class Player
     def initialize(name, symbol)
         @name = name
         @symbol = symbol
+    end
+
+    def get_symbol
+        return @symbol
     end
 
     def get_name_symbol
@@ -75,7 +79,8 @@ while
     # loop and let players make choices until game is over
     while not new_game.game_finished
         # first player makes selection, then check if game is over
-        player1.make_selection
+        selection = player1.make_selection
+        new_game.replace_number(@board, selection, player1.get_symbol)
         new_game.check_win
         new_game.print_board
         # if the game isn't over, player 2 can select, then check if game is over
@@ -92,3 +97,6 @@ while
 end
 
 
+def replace_number(board, selection, character)
+    board.gsub(selection, character)
+end
