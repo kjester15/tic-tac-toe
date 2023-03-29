@@ -15,7 +15,7 @@ class Game
 
     # method to replace number on board with player's symbol - SHOULD THIS BE IN HERE? OR IN PLAYER?
     def replace_number(board, selection, character)
-        @board = board.gsub("1", character)
+        @board = board.gsub(selection, character)
     end
 
     def check_win
@@ -52,7 +52,7 @@ class Player
 
     def make_selection
         puts "Choose a number on the board to make a move"
-        @selection = gets
+        @selection = gets.chomp
         return @selection
     end
 end
