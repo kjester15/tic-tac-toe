@@ -15,7 +15,7 @@ class Game
 
     # method to replace number on board with player's symbol - SHOULD THIS BE IN HERE? OR IN PLAYER?
     def replace_number(board, selection, character)
-        # board.gsub(selection, character)
+        @board = board.gsub("1", character)
     end
 
     def check_win
@@ -23,14 +23,20 @@ class Game
 
         # logic to check if there are three in a row - if so, update @win to true
         if @win == true
-            puts "You win!"
             @game_finished = true
+            @winner = @player_turn
         end
+    end
+
+    def get_winner
+        puts "#{@winner} wins!"
     end
             
 end
 
 class Player
+    attr_accessor :selection, :name, :symbol
+
     def initialize(name, symbol)
         @name = name
         @symbol = symbol
@@ -47,53 +53,53 @@ class Player
     def make_selection
         puts "Choose a number on the board to make a move"
         @selection = gets
-        puts "You chose #{@selection}"
+        return @selection
     end
 end
 
 while
-    # initialize new game
+    # initialize new game - DONE
     new_game = Game.new
     puts "Welcome to Tic Tac Toe! Let's play a game in the console."
     
-    # create player 1 class
+    # create players - DONE
     puts "What is player 1's name?" 
     player_name = gets.chomp
     puts "What letter/symbol would you like to use for your game marker, #{player_name}?" 
     player_symbol = gets.chomp
     player1 = Player.new(player_name, player_symbol)
     
-    # create player 2 class
     puts "What is player 2's name?" 
     player_name = gets.chomp
     puts "What letter/symbol would you like to use for your game marker, #{player_name}?"
     player_symbol = gets.chomp
     player2 = Player.new(player_name, player_symbol)
     
-    # print player names and symbols, game board, and game_finished value, for error checking - CAN EVENTUALLY DELETE
-    puts player1.get_name_symbol
-    puts player2.get_name_symbol
+    # print game board - DONE
     puts new_game.print_board
-    puts "is game finished? #{new_game.game_finished}"
 
-    # loop and let players make choices until game is over
+    # loop and let players make choices until game is over - TODO
     # while not new_game.game_finished
         # first player makes selection, then check if game is over
+        new_game.player_turn = player1.name
         selection = player1.make_selection
-        new_game.replace_number(@board, selection, player1.get_symbol)
+        new_game.replace_number(new_game.board, selection, player1.get_symbol)
         new_game.check_win
         new_game.print_board
         # if the game isn't over, player 2 can select, then check if game is over
         if not new_game.game_finished
-            player2.make_selection
+            new_game.player_turn = player2.name
+            selection = player2.make_selection
+            new_game.replace_number(new_game.board, selection, player2.get_symbol)
             new_game.check_win
             new_game.print_board
         end
     # end
 
-    # calculate and return the winner
+    # return the winner - TODO
+    new_game.get_winner
 
-    # ask to play another game
+    # ask to play another game - DONE
     answer = ""
     until answer == "yes" || answer == "no"
         puts "Would you like to play again?"
@@ -107,9 +113,4 @@ while
     if answer == "no"
         break
     end
-end
-
-
-def replace_number(board, selection, character)
-    board.gsub(selection, character)
 end
