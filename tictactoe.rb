@@ -74,10 +74,10 @@ while
     puts player1.get_name_symbol
     puts player2.get_name_symbol
     puts new_game.print_board
-    puts new_game.game_finished
+    puts "is game finished? #{new_game.game_finished}"
 
     # loop and let players make choices until game is over
-    while not new_game.game_finished
+    # while not new_game.game_finished
         # first player makes selection, then check if game is over
         selection = player1.make_selection
         new_game.replace_number(@board, selection, player1.get_symbol)
@@ -89,11 +89,24 @@ while
             new_game.check_win
             new_game.print_board
         end
-    end
+    # end
 
     # calculate and return the winner
 
     # ask to play another game
+    answer = ""
+    until answer == "yes" || answer == "no"
+        puts "Would you like to play again?"
+        answer = gets.chomp.downcase
+        if answer == "yes" || answer == "no"
+            break
+        else
+            puts "Please answer with 'yes' or 'no'"
+        end
+    end
+    if answer == "no"
+        break
+    end
 end
 
 
