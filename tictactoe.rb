@@ -3,6 +3,7 @@ class Game
 
     def initialize
         @board = " 1 | 2 | 3 \n---+---+---\n 4 | 5 | 6 \n---+---+---\n 7 | 8 | 9 "
+        @board_array = [1, 2, 3, 4, 5, 6, 7, 8, 9]
         @winner = ""
         @player_turn = ""
         @win = false
@@ -11,16 +12,18 @@ class Game
 
     def print_board
         puts @board
+        puts @board_array
     end
 
-    # method to replace number on board with player's symbol - SHOULD THIS BE IN HERE? OR IN PLAYER?
+    # method to replace number on board with player's symbol
     def replace_number(board, selection, character)
         @board = board.gsub(selection, character)
+        @board_array.map! { |x| x == selection.to_i ? character : x}
     end
 
-    def check_win
+    def check_win(character)
         #check if their is a winning streak on the board
-
+        # if 3 in a row equal the players character, set @win to true
         # logic to check if there are three in a row - if so, update @win to true
         if @win == true
             @game_finished = true
@@ -84,12 +87,12 @@ while
         new_game.player_turn = player1.name
         selection = player1.make_selection
         new_game.replace_number(new_game.board, selection, player1.get_symbol)
-        new_game.check_win
+        new_game.check_win(player1.get_symbol)
         new_game.print_board
         # if the game isn't over, player 2 can select, then check if game is over
         if not new_game.game_finished
             new_game.player_turn = player2.name
-            selection = player2.make_selection
+            selection = player2.make_selection(player2.get_symbol)
             new_game.replace_number(new_game.board, selection, player2.get_symbol)
             new_game.check_win
             new_game.print_board
