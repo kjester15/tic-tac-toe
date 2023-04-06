@@ -1,11 +1,12 @@
 class Game
-    attr_accessor :board, :winner, :player_turn, :win, :game_finished
+    attr_accessor :board, :winner, :player_turn, :win, :game_finished, :draw
 
     def initialize
         @board = " 1 | 2 | 3 \n---+---+---\n 4 | 5 | 6 \n---+---+---\n 7 | 8 | 9 "
         @board_array = [1, 2, 3, 4, 5, 6, 7, 8, 9]
         @winner = ""
         @player_turn = ""
+        @draw = ""
         @win = false
         @game_finished = false
     end
@@ -33,6 +34,11 @@ class Game
             (@board_array[0] == character && @board_array[4] == character && @board_array[8] == character) || 
             (@board_array[2] == character && @board_array[4] == character && @board_array[6] == character)
             @win = true
+        end
+        # check for a draw
+        if @board_array.none? { |x| x.is_a?(Integer) }
+            @game_finished = true
+            @draw = true
         end
         # logic to check if there are three in a row - if so, update @win to true
         if @win == true
@@ -122,7 +128,11 @@ while
     end
 
     # return the winner - TODO
-    new_game.get_winner
+    if new_game.draw == true
+        puts "It's a draw!"
+    else 
+        new_game.get_winner
+    end
 
     # ask to play another game - DONE
     answer = ""
