@@ -12,7 +12,6 @@ class Game
 
     def print_board
         puts @board
-        puts @board_array
     end
 
     # method to replace number on board with player's symbol
@@ -24,7 +23,17 @@ class Game
     def check_win(character)
         #check if their is a winning streak on the board
         # if 3 in a row equal the players character, set @win to true
-
+        if (@board_array[0] == character && @board_array[1] == character && @board_array[2] == character) ||
+            (@board_array[3] == character && @board_array[4] == character && @board_array[5] == character) || 
+            (@board_array[6] == character && @board_array[7] == character && @board_array[8] == character) || 
+            (@board_array[0] == character && @board_array[3] == character && @board_array[6] == character) || 
+            (@board_array[1] == character && @board_array[4] == character && @board_array[7] == character) || 
+            (@board_array[2] == character && @board_array[5] == character && @board_array[8] == character) || 
+            (@board_array[2] == character && @board_array[5] == character && @board_array[8] == character) || 
+            (@board_array[0] == character && @board_array[4] == character && @board_array[8] == character) || 
+            (@board_array[2] == character && @board_array[4] == character && @board_array[6] == character)
+            @win = true
+        end
         # logic to check if there are three in a row - if so, update @win to true
         if @win == true
             @game_finished = true
@@ -83,7 +92,7 @@ while
     puts new_game.print_board
 
     # loop and let players make choices until game is over - TODO
-    # while not new_game.game_finished
+    while not new_game.game_finished
         # first player makes selection, then check if game is over
         new_game.player_turn = player1.name
         selection = player1.make_selection
@@ -98,7 +107,7 @@ while
             new_game.check_win(player2.get_symbol)
             new_game.print_board
         end
-    # end
+    end
 
     # return the winner - TODO
     new_game.get_winner
