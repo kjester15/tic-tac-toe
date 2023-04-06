@@ -63,8 +63,8 @@ class Player
         puts "#{@name}'s symbol is #{@symbol}"
     end
 
-    def make_selection
-        puts "Choose a number on the board to make a move"
+    def make_selection(name)
+        puts "#{name}, choose a number on the board to make a move."
         @selection = gets.chomp
         return @selection
     end
@@ -86,6 +86,10 @@ while
     player_name = gets.chomp
     puts "What letter/symbol would you like to use for your game marker, #{player_name}?"
     player_symbol = gets.chomp
+    until player_symbol != player1.get_symbol
+        puts "Please select a different letter/symbol"
+        player_symbol = gets.chomp
+    end
     player2 = Player.new(player_name, player_symbol)
     
     # print game board - DONE
@@ -95,14 +99,14 @@ while
     while not new_game.game_finished
         # first player makes selection, then check if game is over
         new_game.player_turn = player1.name
-        selection = player1.make_selection
+        selection = player1.make_selection(player1.name)
         new_game.replace_number(new_game.board, selection, player1.get_symbol)
         new_game.check_win(player1.get_symbol)
         new_game.print_board
         # if the game isn't over, player 2 can select, then check if game is over
         if not new_game.game_finished
             new_game.player_turn = player2.name
-            selection = player2.make_selection
+            selection = player2.make_selection(player2.name)
             new_game.replace_number(new_game.board, selection, player2.get_symbol)
             new_game.check_win(player2.get_symbol)
             new_game.print_board
