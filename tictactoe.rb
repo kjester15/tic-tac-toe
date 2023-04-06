@@ -24,6 +24,7 @@ class Game
     def check_win(character)
         #check if their is a winning streak on the board
         # if 3 in a row equal the players character, set @win to true
+
         # logic to check if there are three in a row - if so, update @win to true
         if @win == true
             @game_finished = true
@@ -92,9 +93,9 @@ while
         # if the game isn't over, player 2 can select, then check if game is over
         if not new_game.game_finished
             new_game.player_turn = player2.name
-            selection = player2.make_selection(player2.get_symbol)
+            selection = player2.make_selection
             new_game.replace_number(new_game.board, selection, player2.get_symbol)
-            new_game.check_win
+            new_game.check_win(player2.get_symbol)
             new_game.print_board
         end
     # end
