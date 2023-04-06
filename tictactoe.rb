@@ -80,12 +80,20 @@ while
     player_name = gets.chomp
     puts "What letter/symbol would you like to use for your game marker, #{player_name}?" 
     player_symbol = gets.chomp
+    until player_symbol.length == 1
+        puts "Please choose a letter/symbol that is only 1 character long."
+        player_symbol = gets.chomp
+    end
     player1 = Player.new(player_name, player_symbol)
     
     puts "What is player 2's name?" 
     player_name = gets.chomp
     puts "What letter/symbol would you like to use for your game marker, #{player_name}?"
     player_symbol = gets.chomp
+    until player_symbol.length == 1
+        puts "Please choose a letter/symbol that is only 1 character long."
+        player_symbol = gets.chomp
+    end
     until player_symbol != player1.get_symbol
         puts "Please select a different letter/symbol"
         player_symbol = gets.chomp
