@@ -34,16 +34,13 @@ class Game
             (@board_array[0] == character && @board_array[4] == character && @board_array[8] == character) || 
             (@board_array[2] == character && @board_array[4] == character && @board_array[6] == character)
             @win = true
+            @game_finished = true
+            @winner = @player_turn
         end
         # check for a draw
         if @board_array.none? { |x| x.is_a?(Integer) }
             @game_finished = true
             @draw = true
-        end
-        # logic to check if there are three in a row - if so, update @win to true
-        if @win == true
-            @game_finished = true
-            @winner = @player_turn
         end
     end
 
