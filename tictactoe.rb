@@ -45,7 +45,7 @@ class Game
     end
   end
 
-  def get_winner
+  def print_winner
     puts "#{@winner} wins!"
   end
 end
@@ -59,12 +59,8 @@ class Player
     @symbol = symbol
   end
 
-  def get_symbol
+  def print_symbol
     @symbol
-  end
-
-  def get_name_symbol
-    puts "#{@name}'s symbol is #{@symbol}"
   end
 
   def make_selection(name)
@@ -98,7 +94,7 @@ while
       puts 'Please choose a letter/symbol that is only 1 character long.'
       player_symbol = gets.chomp
     end
-    until player_symbol != player1.get_symbol
+    until player_symbol != player1.print_symbol
       puts 'Please select a different letter/symbol'
       player_symbol = gets.chomp
     end
@@ -107,29 +103,29 @@ while
     # print game board - DONE
     puts new_game.print_board
 
-    # loop and let players make choices until game is over - TODO
+    # loop and let players make choices until game is over - DONE
     while not new_game.game_finished
       # first player makes selection, then check if game is over
       new_game.player_turn = player1.name
       selection = player1.make_selection(player1.name)
-      new_game.replace_number(new_game.board, selection, player1.get_symbol)
-      new_game.check_win(player1.get_symbol)
+      new_game.replace_number(new_game.board, selection, player1.print_symbol)
+      new_game.check_win(player1.print_symbol)
       new_game.print_board
       # if the game isn't over, player 2 can select, then check if game is over
       if not new_game.game_finished
         new_game.player_turn = player2.name
         selection = player2.make_selection(player2.name)
-        new_game.replace_number(new_game.board, selection, player2.get_symbol)
-        new_game.check_win(player2.get_symbol)
+        new_game.replace_number(new_game.board, selection, player2.print_symbol)
+        new_game.check_win(player2.print_symbol)
         new_game.print_board
       end
     end
 
-    # return the winner - TODO
+    # return the winner - DONE
     if new_game.draw == true
       puts "It's a draw!"
     else
-      new_game.get_winner
+      new_game.print_winner
     end
 
     # ask to play another game - DONE
