@@ -66,8 +66,7 @@ class Player
   def make_selection(name)
     puts "#{name}, choose a number on the board to make a move."
     @selection = gets.chomp
-    # TODO: need to add a check to make sure selection is a valid choice (not a prior selection, only a number)
-    until @selection.match(/[0-9]/)
+    until @selection.match(/[1-9]/)
       puts 'Please choose a valid selection from the remaining numbers on the board.'
       @selection = gets.chomp
     end
@@ -83,21 +82,20 @@ while
     # create players - DONE
     puts "What is player 1's name?"
     player_name = gets.chomp
-    puts "What letter/symbol would you like to use for your game marker, #{player_name}?"
+    puts "What letter would you like to use for your game marker, #{player_name}?"
     player_symbol = gets.chomp
-    # TODO: need to add check to restrict using a number or a space
-    until player_symbol.length == 1
-      puts 'Please choose a letter/symbol that is only 1 character long, and is not a number or a space.'
+    until player_symbol.length == 1 && player_symbol.match(/[A-Za-z]/)
+      puts 'Please choose a letter that is only 1 character long, and is a valid alphabetical letter.'
       player_symbol = gets.chomp
     end
     player1 = Player.new(player_name, player_symbol)
 
     puts "What is player 2's name?"
     player_name = gets.chomp
-    puts "What letter/symbol would you like to use for your game marker, #{player_name}?"
+    puts "What letter would you like to use for your game marker, #{player_name}?"
     player_symbol = gets.chomp
-    until player_symbol.length == 1
-      puts 'Please choose a letter/symbol that is only 1 character long.'
+    until player_symbol.length == 1 && player_symbol.match(/[A-Za-z]/)
+      puts 'Please choose a letter that is only 1 character long, and is a valid alphabetical letter.'
       player_symbol = gets.chomp
     end
     until player_symbol != player1.print_symbol
